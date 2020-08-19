@@ -10,16 +10,12 @@ class App extends Component {
   };
   onSubmit = (e) => {
     e.preventDefault();
-    if (taskArray.length === 0) {
-      this.setState({
-        emptyList: false,
-      });
-    }
-    if (this.state.inputValue === "") return;
+    if (this.state.inputValue.length === 0) return;
     else {
       taskArray.push(this.state.inputValue);
       this.setState({
         inputValue: "",
+        emptyList: false,
       });
     }
   };
