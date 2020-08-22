@@ -6,7 +6,8 @@ class App extends Component {
   state = {
     inputValue: "",
     deleteItem: "",
-    emptyList: true,
+    emptyList: false,
+    noData: true,
   };
   onSubmit = (e) => {
     e.preventDefault();
@@ -15,7 +16,8 @@ class App extends Component {
       taskArray.push(this.state.inputValue);
       this.setState({
         inputValue: "",
-        emptyList: false,
+        emptyList: true,
+        noData: true,
       });
     }
   };
@@ -43,7 +45,13 @@ class App extends Component {
       localStorage["saveTask's"] = JSON.stringify(taskArray);
     }
   };
-
+  componentDidMount = () => {
+    if (localStorage.getItem("saveTask's") !== null) {
+      this.setState({
+        noData: false,
+      });
+    }
+  };
   render() {
     return (
       <>
@@ -55,6 +63,7 @@ class App extends Component {
           removeTask={this.removeTask}
           emptyList={this.state.emptyList}
           saveToLocalStorage={this.saveList}
+          dataStatus={this.state.noData}
         />
       </>
     );
